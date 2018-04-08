@@ -5,6 +5,7 @@
  */
 package heureka;
 
+import java.awt.Point;
 import java.io.FileNotFoundException;
 
 /**
@@ -19,6 +20,9 @@ public class Heureka {
     public static void main(String[] args) throws FileNotFoundException {
         // TODO code application logic here
         DB db = new DB();
+        IntelligentSearcher is;
+        is = new IntelligentSearcher("Calle 84", new Point(10, 70), new Point(70, 85), db);
+        is.StartSearch();
     }
     
 }

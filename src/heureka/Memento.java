@@ -14,7 +14,38 @@ import java.awt.Point;
 public class Memento {
     
     private Point pos = new Point();
+    private String street = "";
+    private Memento parent;
+    private boolean isInitialNode = false;
 
+    public Memento(Memento parent){
+        this.parent = parent;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public Point getPos() {
+        return pos;
+    }
+
+    public void setPos(Point pos) {
+        this.pos = pos;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public Memento getParent() {
+        return parent;
+    }
+
+    public void setParent(Memento parent) {
+        this.parent = parent;
+    }
+    
     public double getXPoint() {
         return pos.getX();
     }
@@ -29,5 +60,13 @@ public class Memento {
     
     public void setY(int posY) {
         this.pos.y = posY;
+    }
+    
+    public void setIsInitialNode(boolean isInitialNode) {
+        this.isInitialNode = isInitialNode;
+    }
+    
+    public boolean isInitialNode() {
+        return isInitialNode;
     }
 }

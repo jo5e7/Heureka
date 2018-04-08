@@ -6,6 +6,7 @@
 package heureka;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,8 +14,13 @@ import java.awt.Point;
  */
 public class EngineAStar extends Engine{
 
-    public EngineAStar(DB db) {
-        super(db);
+    public EngineAStar(DB db, Memento initialNode) {
+        super(db, initialNode);
+    }
+
+    @Override
+    public Memento performSearch(Point goal) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -23,13 +29,9 @@ public class EngineAStar extends Engine{
     }
 
     @Override
-    public void expandrontier() {
+    public ArrayList<Memento> expandFrontier(Memento node) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void performSearch(Point start, Point end) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
 }

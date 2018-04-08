@@ -28,8 +28,8 @@ public class Street {
         this.name = name;
     }
 
-    public Map<Point, ArrayList<Point>> getBlock() {
-        return blocks;
+    public ArrayList<Point> getBlock(Point startBlock) {
+        return blocks.get(startBlock);
     }
 
     public void setBlock(Point start, Point end) {
