@@ -27,7 +27,7 @@ public class Street {
     public void setName(String name) {
         this.name = name;
     }
-
+    
     public ArrayList<Point> getBlock(Point startBlock) {
         return blocks.get(startBlock);
     }

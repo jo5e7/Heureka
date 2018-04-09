@@ -9,7 +9,6 @@ import java.awt.Point;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashSet;
-import javax.swing.text.Position;
 
 /**
  *
@@ -18,13 +17,12 @@ import javax.swing.text.Position;
 abstract public class Engine {
     
     public HashSet<Memento> explored = new HashSet<>();
-    public ArrayDeque<Memento> frontier = new ArrayDeque<>();
     public DB db;
     public Memento initialNode;
     //private DB db = new DB();
 
     
-    abstract public Memento performSearch(Point goal);
+        abstract public Memento performSearch(Point goal);
     abstract public void add2Frontier(Memento memento);
     abstract public ArrayList<Memento> expandFrontier(Memento node);
 
@@ -32,19 +30,19 @@ abstract public class Engine {
         this.db = db;
         this.initialNode = initialNode;
         add2Frontier(initialNode);
-        this.explored.add(initialNode);
+        //this.explored.add(initialNode);
     }
         
     // Heuristic value
-    private double h(Point current, Point goal){
+    public double h(Point next, Point goal){
         
-        return Math.hypot(current.getX()-goal.getY(), current.getY()-goal.getY());
+        return Math.hypot(next.getX()-goal.getX(), next.getY()-goal.getY());
     }
 
     //Path cost
-    private double g(Point current, Point next){
+    public double g(Point current, Point next){
         
-        return Math.hypot(current.getX()-next.getY(), current.getY()-next.getY());
+        return Math.hypot(current.getX()-next.getX(), current.getY()-next.getY());
     }
     
     //Find path

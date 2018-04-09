@@ -6,7 +6,9 @@
 package heureka;
 
 import java.awt.Point;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 
 /**
@@ -15,6 +17,8 @@ import java.util.Iterator;
  */
 public class EngineBFS extends Engine{
 
+   public ArrayDeque<Memento> frontier = new ArrayDeque<>();
+    
    public EngineBFS(DB db, Memento initialNode) {
         super(db, initialNode);
     }
@@ -44,7 +48,7 @@ public class EngineBFS extends Engine{
                 }
             }   
         }
-        explored.add(node);
+        //explored.add(node);
         return expandedNodes;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

@@ -16,10 +16,20 @@ public class Memento {
     private Point pos = new Point();
     private String street = "";
     private Memento parent;
+    public double f_n = -1; 
     private boolean isInitialNode = false;
 
     public Memento(Memento parent){
         this.parent = parent;
+    }
+    
+    @Override
+    public boolean equals(Object obj){
+        if (obj instanceof Memento) {
+            Memento other = (Memento)obj;
+            return (pos.equals(other.pos));
+        }
+        return super.equals(obj);
     }
 
     public String getStreet() {
