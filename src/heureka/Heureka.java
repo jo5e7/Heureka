@@ -5,6 +5,8 @@
  */
 package heureka;
 
+import heureka.route_planning.RouteSearcher;
+import heureka.route_planning.RouteDB;
 import java.awt.Point;
 import java.io.FileNotFoundException;
 
@@ -24,10 +26,10 @@ public class Heureka {
                 new UI().setVisible(true);
             }
         });
-        DB db = new DB();
+        RouteDB db = new RouteDB();
         IntelligentSearcher is;
         is = new RouteSearcher("Calle 84", new Point(10, 70), new Point(55, 55), db);
-        is.setAStar();
+        //is.setAStar();
         is.StartSearch();
     }
     

@@ -5,6 +5,8 @@
  */
 package heureka;
 
+import heureka.route_planning.RouteDB;
+import heureka.route_planning.Memento;
 import java.awt.Point;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -16,21 +18,18 @@ import java.util.HashSet;
  */
 abstract public class Engine {
     
-    public HashSet<Memento> explored = new HashSet<>();
-    public DB db;
-    public Memento initialNode;
+    public HashSet<Node> explored = new HashSet<>();
+    public RouteDB db;
+    public Node initialNode;
     //private DB db = new DB();
 
     
-    abstract public Memento performSearch(Node goal);
-    abstract public void add2Frontier(Memento memento);
-    abstract public ArrayList<Memento> expandFrontier(Memento node);
+    abstract public Node performSearch(Node goal);
 
-    public Engine(DB db, Memento initialNode) {
+    public Engine(RouteDB db, Memento initialNode) {
         
         this.db = db;
         this.initialNode = initialNode;
-        add2Frontier(initialNode);
         //this.explored.add(initialNode);
     }
 }

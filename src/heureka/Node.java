@@ -5,11 +5,14 @@
  */
 package heureka;
 
+import heureka.route_planning.Memento;
+import java.util.ArrayList;
+
 /**
  *
  * @author jdmaestre
  */
-interface Node {
+public interface Node {
 
     public Node getParent();
 
@@ -18,4 +21,8 @@ interface Node {
     public boolean equalState(Node node);
     
     public double calculate_heuristic(Node node);
+    
+    public void set_f_n(double f_n);
+    
+    public ArrayList<Node> expandNode(DB db);
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package heureka;
+package heureka.route_planning;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -17,8 +17,8 @@ import javafx.geometry.Pos;
  */
 public class Street {
     
-    String name;
-    Map<Point, ArrayList<Point>> blocks = new HashMap<>();
+    public String name;
+    public Map<Point, ArrayList<Point>> blocks = new HashMap<>();
 
     public String getName() {
         return name;

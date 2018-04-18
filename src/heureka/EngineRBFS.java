@@ -5,6 +5,8 @@
  */
 package heureka;
 
+import heureka.route_planning.RouteDB;
+import heureka.route_planning.Memento;
 import java.awt.Point;
 import java.util.ArrayList;
 
@@ -15,19 +17,8 @@ import java.util.ArrayList;
 
 public class EngineRBFS extends Engine{
 
-    public EngineRBFS(DB db, Memento initialNode) {
+    public EngineRBFS(RouteDB db, Memento initialNode) {
         super(db, initialNode);
-    }
-
-    
-    @Override
-    public void add2Frontier(Memento memento) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList<Memento> expandFrontier(Memento node) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

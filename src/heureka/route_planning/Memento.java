@@ -3,9 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package heureka;
+package heureka.route_planning;
 
+import heureka.DB;
+import heureka.Node;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  *
@@ -18,7 +22,8 @@ public class Memento implements Node{
     private Memento parent;
     public double f_n = -1; 
     private boolean isInitialNode = false;
-
+    
+    
     public Memento(Memento parent){
         this.parent = parent;
     }
@@ -96,6 +101,35 @@ public class Memento implements Node{
     
     public boolean isInitialNode() {
         return isInitialNode;
+    }
+
+    @Override
+    public void set_f_n(double f_n) {
+        this.f_n = f_n;
+    }
+
+    @Override
+    public ArrayList<Node> expandNode(DB database) {
+        Memento node = this;
+        RouteDB db = (RouteDB)database;
+        ArrayList<Node> expandedNodes = new ArrayList<>();
+        //Search in every street
+        for (int i = 0; i < db.streets.size(); i++) {
+            //If the street has a block that begins at the start point then
+            //the end of that block is added to the frontier
+            if (db.streets.get(i).blocks.containsKey(node.getPos())) {
+                
+                //Creates a new node for every endPoint
+                for (int j = 0; j < db.streets.get(i).blocks.get(node.getPos()).size(); j++) {
+                    Memento newNode = new Memento(node);
+                    newNode.setStreet(db.streets.get(i).name);
+                    newNode.setPos(db.streets.get(i).blocks.get(node.getPos()).get(j));
+                    expandedNodes.add(newNode); 
+                }
+            }   
+        }
+        //explored.add(node);
+        return expandedNodes;
     }
 
     

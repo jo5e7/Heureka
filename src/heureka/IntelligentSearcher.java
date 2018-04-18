@@ -5,6 +5,7 @@
  */
 package heureka;
 
+import heureka.route_planning.RouteDB;
 import java.awt.Point;
 
 /**
@@ -13,7 +14,7 @@ import java.awt.Point;
  */
 public interface IntelligentSearcher {
     
-    public void setDb(DB db);
+    public void setDb(RouteDB db);
     
     public void StartSearch();
    
