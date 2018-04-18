@@ -19,11 +19,7 @@ public class EngineRBFS extends Engine{
         super(db, initialNode);
     }
 
-    @Override
-    public Memento performSearch(Point goal) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
     @Override
     public void add2Frontier(Memento memento) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -31,6 +27,11 @@ public class EngineRBFS extends Engine{
 
     @Override
     public ArrayList<Memento> expandFrontier(Memento node) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Memento performSearch(Node goal) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

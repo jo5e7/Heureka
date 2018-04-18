@@ -41,8 +41,8 @@ public class EngineAStar extends Engine{
     }
 
     @Override
-    public Memento performSearch(Point goal) {
-        if (initialNode.getPos().equals(goal)) {
+    public Memento performSearch(Node goal) {
+        if (initialNode.equalState(goal)) {
             return initialNode;
         }
         frontier.add(initialNode);
@@ -58,12 +58,13 @@ public class EngineAStar extends Engine{
             while (iterator.hasNext()) {
                 Memento next = iterator.next();
                 if (!explored.contains(next) &&  !frontier.contains(next)) {
-                    if (next.getPos().equals(goal)) {
+                    if (next.equalState(goal)) {
                         
                         return next;
                     }
-                    double g_n = g(frontierNode.getPos(), next.getPos());
-                    double h_n = h(next.getPos(), goal);
+                    //Calculate g(n), h(n) and f(n)
+                    double g_n = frontierNode.calculate_heuristic(next);
+                    double h_n = next.calculate_heuristic(goal);
                     double f_n = g_n + h_n;
                     next.f_n = f_n;
                     frontier.add(next);

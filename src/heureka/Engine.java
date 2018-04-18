@@ -22,40 +22,15 @@ abstract public class Engine {
     //private DB db = new DB();
 
     
-        abstract public Memento performSearch(Point goal);
+    abstract public Memento performSearch(Node goal);
     abstract public void add2Frontier(Memento memento);
     abstract public ArrayList<Memento> expandFrontier(Memento node);
 
     public Engine(DB db, Memento initialNode) {
+        
         this.db = db;
         this.initialNode = initialNode;
         add2Frontier(initialNode);
         //this.explored.add(initialNode);
     }
-        
-    // Heuristic value
-    public double h(Point next, Point goal){
-        
-        return Math.hypot(next.getX()-goal.getX(), next.getY()-goal.getY());
-    }
-
-    //Path cost
-    public double g(Point current, Point next){
-        
-        return Math.hypot(current.getX()-next.getX(), current.getY()-next.getY());
-    }
-    
-    //Find path
-    public void FindFinalPath(Memento goal){
-        
-        while (true) {            
-            System.out.println(goal.getStreet() + " " + goal.getXPoint() + "  " + goal.getYPoint());
-            System.out.println("");
-            goal = goal.getParent();
-            if (goal == null) {
-                break;
-            }
-        }
-    }
-
 }

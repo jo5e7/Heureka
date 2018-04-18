@@ -54,9 +54,9 @@ public class EngineBFS extends Engine{
     }
 
     @Override
-    public Memento performSearch(Point goal) {
+    public Memento performSearch(Node goal) {
         
-        if (initialNode.getPos().equals(goal)) {
+        if (initialNode.equalState(goal)) {
             return initialNode;
         }
         frontier.add(initialNode);
@@ -70,7 +70,7 @@ public class EngineBFS extends Engine{
             while (iterator.hasNext()) {
                 Memento next = iterator.next();
                 if (!explored.contains(next) && !frontier.contains(next)) {
-                    if (next.getPos().equals(goal)) {
+                    if (next.equalState(goal)) {
                         return next;
                     }
                     frontier.add(next);

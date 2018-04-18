@@ -11,7 +11,7 @@ import java.awt.Point;
  *
  * @author jdmaestre
  */
-public class Memento {
+public class Memento implements Node{
     
     private Point pos = new Point();
     private String street = "";
@@ -30,6 +30,24 @@ public class Memento {
             return (pos.equals(other.pos));
         }
         return super.equals(obj);
+    }
+    
+    @Override
+    public boolean equalState(Node node) {
+        if (node instanceof Memento) {
+            Memento other = (Memento)node;
+            return (pos.equals(other.pos));
+        }
+        return super.equals(node);
+    }
+    
+    @Override
+    public double calculate_heuristic(Node node) {
+        if (node instanceof Memento) {
+            Memento other = (Memento)node;
+            return Math.hypot(this.pos.getX()-other.pos.getX(), this.pos.getY()-other.pos.getY());
+        }
+        return -1;
     }
 
     public String getStreet() {
@@ -79,4 +97,8 @@ public class Memento {
     public boolean isInitialNode() {
         return isInitialNode;
     }
+
+    
+
+    
 }
