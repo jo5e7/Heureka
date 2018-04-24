@@ -14,7 +14,7 @@ import java.awt.Point;
  */
 public interface IntelligentSearcher {
     
-    public void setDb(RouteDB db);
+    public void setDb(DB db);
     
     public void StartSearch();
    

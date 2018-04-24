@@ -7,12 +7,7 @@ package heureka;
 
 import heureka.route_planning.RouteDB;
 import heureka.route_planning.Memento;
-import java.awt.Point;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.PriorityQueue;
 

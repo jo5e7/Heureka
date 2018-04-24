@@ -6,6 +6,7 @@
 package heureka.route_planning;
 
 
+import heureka.DB;
 import heureka.Engine;
 import heureka.EngineAStar;
 import heureka.EngineBFS;
@@ -77,7 +78,7 @@ public class RouteSearcher implements IntelligentSearcher{
     }
 
     @Override
-    public void setDb(RouteDB db) {
+    public void setDb(DB db) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
