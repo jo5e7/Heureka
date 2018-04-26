@@ -19,7 +19,7 @@ public class Memento implements Node{
     
     private Point pos = new Point();
     private String street = "";
-    private Memento parent;
+    private Node parent;
     public double f_n = -1; 
     private boolean isInitialNode = false;
     
@@ -71,11 +71,12 @@ public class Memento implements Node{
         this.street = street;
     }
 
-    public Memento getParent() {
+    public Node getParent() {
         return parent;
     }
 
-    public void setParent(Memento parent) {
+    @Override
+    public void setParent(Node parent) {
         this.parent = parent;
     }
     

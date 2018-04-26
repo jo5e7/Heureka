@@ -12,7 +12,35 @@ import java.util.ArrayList;
  * @author jdmaestre
  */
 public class Conjuction {
-   ArrayList<Disjunction> disjunctions = new ArrayList<>();
+   public ArrayList<Disjunction> disjunctions = new ArrayList<>();
    
+   public Conjuction(){
+       
+   }
+   
+   public Conjuction(ArrayList<Disjunction> disjunctions){
+       this.disjunctions = disjunctions;
+   }
+   
+   public void addDisjuction(Disjunction disjunction){
+       disjunctions.add(disjunction);
+   }
+   
+   @Override
+    public boolean equals(Object other){
+        if (other instanceof Conjuction) {
+            if (((Conjuction) other).disjunctions.size() == this.disjunctions.size()) {
+                for (Disjunction disjunction : disjunctions) {
+                    if (!((Conjuction) other).disjunctions.contains(disjunction)) {
+                        return false;
+                    }
+                }
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return super.equals(other);
+    }
    
 }

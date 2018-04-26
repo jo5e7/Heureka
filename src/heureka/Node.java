@@ -16,7 +16,7 @@ public interface Node {
 
     public Node getParent();
 
-    public void setParent(Memento parent);
+    public void setParent(Node parent);
     
     public boolean equalState(Node node);
     

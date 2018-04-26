@@ -101,7 +101,7 @@ public class RouteSearcher implements IntelligentSearcher{
             while (true) {            
             System.out.println(other.getStreet() + " " + other.getXPoint() + "  " + other.getYPoint());
             System.out.println("");
-            other = other.getParent();
+            other = (Memento) other.getParent();
             if (other == null) {
                 break;
             }
