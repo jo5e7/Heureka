@@ -21,7 +21,7 @@ public class EngineBFS extends Engine{
 
    public ArrayDeque<Node> frontier = new ArrayDeque<>();
     
-   public EngineBFS(RouteDB db, Memento initialNode) {
+   public EngineBFS(DB db, Node initialNode) {
         super(db, initialNode);
     }
    

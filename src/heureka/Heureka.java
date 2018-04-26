@@ -8,6 +8,8 @@ package heureka;
 import heureka.logical_deduction.Atom;
 import heureka.logical_deduction.Conjuction;
 import heureka.logical_deduction.Disjunction;
+import heureka.logical_deduction.IntelligentResolution;
+import heureka.logical_deduction.LogicDB;
 import heureka.route_planning.RouteSearcher;
 import heureka.route_planning.RouteDB;
 import java.awt.Point;
@@ -62,14 +64,18 @@ public class Heureka {
         kb.addDisjuction(d1);
         kb.addDisjuction(d2);
         kb.addDisjuction(d3);
-        kb.addDisjuction(fact);
         
+        LogicDB logicDB = new LogicDB(kb);
+        IntelligentResolution ir = new IntelligentResolution(logicDB, fact);
+        ir.StartSearch();
         
+        /*
         RouteDB db = new RouteDB();
         IntelligentSearcher is;
         is = new RouteSearcher("Calle 84", new Point(10, 70), new Point(55, 55), db);
         //is.setAStar();
         is.StartSearch();
+        */
     }
     
 }

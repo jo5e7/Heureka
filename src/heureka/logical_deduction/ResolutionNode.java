@@ -7,9 +7,7 @@ package heureka.logical_deduction;
 
 import heureka.DB;
 import heureka.Node;
-import heureka.route_planning.Memento;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  *
@@ -17,7 +15,7 @@ import java.util.Iterator;
  */
 public class ResolutionNode implements Node{
     
-    public Conjuction kb = new Conjuction();
+    public Disjunction mDisjunction = new Disjunction();
     public Node parent;
     
     public ResolutionNode(ResolutionNode parent){
@@ -38,7 +36,7 @@ public class ResolutionNode implements Node{
     public boolean equalState(Node node) {
         if (node instanceof ResolutionNode) {
             ResolutionNode other = (ResolutionNode)node;
-            return (kb.equals(other.kb));
+            return (mDisjunction.equals(other.mDisjunction));
         }
         return super.equals(node);
     }
@@ -55,48 +53,48 @@ public class ResolutionNode implements Node{
 
     @Override
     public ArrayList<Node> expandNode(DB db) {
+        LogicDB ldb = (LogicDB) db;
         ArrayList<Node> nodeList = new ArrayList<>();
-        
-        for (int i = 0; i < this.kb.disjunctions.size(); i++) {
+
+        for (int i = 0; i < ldb.getKb().disjunctions.size(); i++) {
             Disjunction newDisjunction = new Disjunction();
-            for (int j = i+1; j < this.kb.disjunctions.size(); j++) {
-                Disjunction d1 = this.kb.disjunctions.get(i);
-                Disjunction d2 = this.kb.disjunctions.get(j);
-                
-                for (Iterator iterator = d1.atoms.iterator(); iterator.hasNext();) {
-                    Atom next1 = (Atom) iterator.next();
-                    boolean add = true;
-                    Disjunction elim = new Disjunction();
-                    for (Iterator iterator1 = d2.atoms.iterator(); iterator1.hasNext();) {
-                        Atom next2 = (Atom) iterator1.next();
-                        // Represetation is the same p,q,r
-                        if (next1.similar(next2) && next1.getValue() != next2.getValue()) {
-                            // Negation or not negation is the same (-p ^ -p)  or (p ^p)
-                                add = false;
-                                elim.addAtom(next1);
-                        }
-                    }
-                    if (add) {
-                        newDisjunction.addAtom(next1);
-                    }
-                    
-                    for (Iterator iterator1 = d2.atoms.iterator(); iterator1.hasNext();) {
-                        Atom next2 = (Atom)iterator1.next();
-                        if (!newDisjunction.containsAtom(next2) && !elim.containsSimilar(next2)) {
-                            newDisjunction.addAtom(next2);
-                        }
+            Disjunction d1 = ldb.getKb().disjunctions.get(i);
+            Disjunction d2 = mDisjunction;
+
+            for (Atom next1 : d1.atoms) {
+                boolean add = true;
+                //Auxiliar disjuction to track eliminated atoms 
+                Disjunction elim = new Disjunction();
+                for (Atom next2 : d2.atoms) {
+                    // Represetation is the same p,q,r
+                    if (next1.similar(next2) && next1.getValue() != next2.getValue()) {
+                        // Negation or not negation is the same (-p ^ -p)  or (p ^p)
+                        add = false;
+                        elim.addAtom(next1);
                     }
                 }
-                
-                ResolutionNode newNode = new ResolutionNode(this);
-                Conjuction newConjuction = new Conjuction(this.kb.disjunctions);
-                newConjuction.addDisjuction(newDisjunction);
-                newNode.kb = newConjuction;
-                nodeList.add(newNode);
+                if (add) {
+                    newDisjunction.addAtom(next1);
+                }
+
+                for (Atom next2 : d2.atoms) {
+                    if (!newDisjunction.containsAtom(next2) && !elim.containsSimilar(next2)) {
+                        newDisjunction.addAtom(next2);
+                    }
+                }
             }
+
+            ResolutionNode newNode = new ResolutionNode(this);
+            newNode.mDisjunction = newDisjunction;
+            nodeList.add(newNode);
+            
+            System.out.println("Number of disjuntions: "+String.valueOf(ldb.getKb().disjunctions.size()));
         }
-        
-        
+        for (Node node : nodeList) {
+            ResolutionNode rn = (ResolutionNode)node;
+            ldb.getKb().addDisjuction(rn.mDisjunction);
+        }
+        System.out.println("Here we go again");
         return nodeList;
     }
     

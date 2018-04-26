@@ -7,9 +7,6 @@ package heureka;
 
 import heureka.route_planning.RouteDB;
 import heureka.route_planning.Memento;
-import java.awt.Point;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -19,14 +16,14 @@ import java.util.HashSet;
 abstract public class Engine {
     
     public HashSet<Node> explored = new HashSet<>();
-    public RouteDB db;
+    public DB db;
     public Node initialNode;
     //private DB db = new DB();
 
     
     abstract public Node performSearch(Node goal);
 
-    public Engine(RouteDB db, Memento initialNode) {
+    public Engine(DB db, Node initialNode) {
         
         this.db = db;
         this.initialNode = initialNode;

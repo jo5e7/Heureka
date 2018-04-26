@@ -57,4 +57,19 @@ public class Disjunction implements DB{
     public void addAtom(Atom atom){
         this.atoms.add(atom);
     }
+    
+    public void print() {
+        if (atoms.size() == 0) {
+            System.out.print("[]");
+        } else {
+            for (Atom atom : atoms) {
+                if (atom.getValue() == true) {
+                    System.out.print(atom.getRepresentation());
+                } else {
+                    System.out.print("-" + atom.getRepresentation());
+                }
+            }
+        }
+        System.out.println("");
+    }
 }
