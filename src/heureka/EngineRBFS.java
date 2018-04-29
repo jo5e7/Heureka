@@ -6,7 +6,7 @@
 package heureka;
 
 import heureka.route_planning.RouteDB;
-import heureka.route_planning.Memento;
+import heureka.route_planning.RouteNode;
 import java.awt.Point;
 import java.util.ArrayList;
 
@@ -17,12 +17,12 @@ import java.util.ArrayList;
 
 public class EngineRBFS extends Engine{
 
-    public EngineRBFS(RouteDB db, Memento initialNode) {
+    public EngineRBFS(RouteDB db, RouteNode initialNode) {
         super(db, initialNode);
     }
 
     @Override
-    public Memento performSearch(Node goal) {
+    public RouteNode performSearch(Node goal) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

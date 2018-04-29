@@ -51,7 +51,7 @@ public class Disjunction implements DB{
                 return true;
             }
         }
-        return true;
+        return false;
     }
     
     public void addAtom(Atom atom){
@@ -70,6 +70,8 @@ public class Disjunction implements DB{
                 }
             }
         }
-        System.out.println("");
+        System.out.println("    new node");
     }
+    
+    
 }

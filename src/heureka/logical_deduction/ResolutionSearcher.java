@@ -10,21 +10,21 @@ import heureka.Engine;
 import heureka.EngineBFS;
 import heureka.IntelligentSearcher;
 import heureka.Node;
-import heureka.route_planning.Memento;
+import heureka.route_planning.RouteNode;
 import heureka.route_planning.RouteDB;
 
 /**
  *
  * @author jdmaestre
  */
-public class IntelligentResolution implements IntelligentSearcher{
+public class ResolutionSearcher implements IntelligentSearcher{
     
     Engine engine;
-    LogicDB kb = new LogicDB();
+    ResolutionDB kb = new ResolutionDB();
     ResolutionNode initialState = new ResolutionNode(null);
     ResolutionNode goalState = new ResolutionNode(null);
     
-    public IntelligentResolution(LogicDB kb, Disjunction initialState){
+    public ResolutionSearcher(ResolutionDB kb, Disjunction initialState){
         this.kb = kb;
         this.initialState.mDisjunction = initialState;
         setBFS();
@@ -62,13 +62,25 @@ public class IntelligentResolution implements IntelligentSearcher{
         if (finalNode instanceof ResolutionNode) {
            ResolutionNode fn = (ResolutionNode)finalNode;
            //Print solution
-            while (fn != null) {                
+           fn.mDisjunction.print();
+           fn.auxDisjunction.print();
+           fn = (ResolutionNode)fn.parent;
+            while (fn != null) {
                 fn.mDisjunction.print();
                 fn = (ResolutionNode)fn.parent;
             }
            
         }else{
             System.out.println("The fact can not be infered from the Knowledge base");
+        }
+        
+        System.out.println("_______________________________");
+        System.out.println("_______________________________");
+        System.out.println("_______________________________");
+        System.out.println("_______________________________");
+        
+        for (Disjunction d : kb.getKb().disjunctions) {
+            d.print();
         }
     }
     

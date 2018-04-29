@@ -24,22 +24,22 @@ public class RouteSearcher implements IntelligentSearcher{
     
     private Engine engine;
     RouteDB db;
-    Memento initialState = new Memento(null);
-    Memento goalState = new Memento(null);
+    RouteNode initialState = new RouteNode(null);
+    RouteNode goalState = new RouteNode(null);
     
     Comparator<Node> mementoHComparator = new Comparator<Node>() {
         @Override
         public int compare(Node o1, Node o2) {
             
-            Memento obj1 = new Memento(null);
-            Memento obj2 = new Memento(null);
+            RouteNode obj1 = new RouteNode(null);
+            RouteNode obj2 = new RouteNode(null);
             
-            if (o1 instanceof Memento) {
-            obj1 = (Memento)o1;
+            if (o1 instanceof RouteNode) {
+            obj1 = (RouteNode)o1;
             }
             
-            if (o2 instanceof Memento) {
-            obj2 = (Memento)o2;
+            if (o2 instanceof RouteNode) {
+            obj2 = (RouteNode)o2;
             }
             
             if (obj1.f_n < obj2.f_n) {
@@ -68,7 +68,7 @@ public class RouteSearcher implements IntelligentSearcher{
     
     @Override
     public void StartSearch() {
-        Memento fn = (Memento)engine.performSearch(goalState);
+        RouteNode fn = (RouteNode)engine.performSearch(goalState);
         FindFinalPath(fn);
     }
     
@@ -95,13 +95,13 @@ public class RouteSearcher implements IntelligentSearcher{
     //Find path
     @Override
     public void FindFinalPath(Node goal){
-        if (goal instanceof Memento) {
-            Memento other = (Memento)goal;
+        if (goal instanceof RouteNode) {
+            RouteNode other = (RouteNode)goal;
             
             while (true) {            
             System.out.println(other.getStreet() + " " + other.getXPoint() + "  " + other.getYPoint());
             System.out.println("");
-            other = (Memento) other.getParent();
+            other = (RouteNode) other.getParent();
             if (other == null) {
                 break;
             }

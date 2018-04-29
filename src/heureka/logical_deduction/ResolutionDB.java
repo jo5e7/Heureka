@@ -11,14 +11,14 @@ import heureka.DB;
  *
  * @author jdmaestre
  */
-public class LogicDB implements DB{
+public class ResolutionDB implements DB{
     
     private Conjuction kb = new Conjuction();
     
-    public LogicDB(){
+    public ResolutionDB(){
     }
     
-    public LogicDB(Conjuction kb){
+    public ResolutionDB(Conjuction kb){
         this.kb = kb;
     }
 

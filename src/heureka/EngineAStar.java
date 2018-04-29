@@ -6,7 +6,7 @@
 package heureka;
 
 import heureka.route_planning.RouteDB;
-import heureka.route_planning.Memento;
+import heureka.route_planning.RouteNode;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.PriorityQueue;
@@ -20,7 +20,7 @@ public class EngineAStar extends Engine{
     
     PriorityQueue<Node> frontier; 
 
-    public EngineAStar(RouteDB db, Memento initialNode, Comparator<Node> comparator) {
+    public EngineAStar(RouteDB db, RouteNode initialNode, Comparator<Node> comparator) {
         super(db, initialNode);
         frontier = new PriorityQueue<>(comparator);
     }

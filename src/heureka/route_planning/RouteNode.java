@@ -15,7 +15,7 @@ import java.util.Comparator;
  *
  * @author jdmaestre
  */
-public class Memento implements Node{
+public class RouteNode implements Node{
     
     private Point pos = new Point();
     private String street = "";
@@ -24,14 +24,14 @@ public class Memento implements Node{
     private boolean isInitialNode = false;
     
     
-    public Memento(Memento parent){
+    public RouteNode(RouteNode parent){
         this.parent = parent;
     }
     
     @Override
     public boolean equals(Object obj){
-        if (obj instanceof Memento) {
-            Memento other = (Memento)obj;
+        if (obj instanceof RouteNode) {
+            RouteNode other = (RouteNode)obj;
             return (pos.equals(other.pos));
         }
         return super.equals(obj);
@@ -39,8 +39,8 @@ public class Memento implements Node{
     
     @Override
     public boolean equalState(Node node) {
-        if (node instanceof Memento) {
-            Memento other = (Memento)node;
+        if (node instanceof RouteNode) {
+            RouteNode other = (RouteNode)node;
             return (pos.equals(other.pos));
         }
         return super.equals(node);
@@ -48,8 +48,8 @@ public class Memento implements Node{
     
     @Override
     public double calculate_heuristic(Node node) {
-        if (node instanceof Memento) {
-            Memento other = (Memento)node;
+        if (node instanceof RouteNode) {
+            RouteNode other = (RouteNode)node;
             return Math.hypot(this.pos.getX()-other.pos.getX(), this.pos.getY()-other.pos.getY());
         }
         return -1;
@@ -111,7 +111,7 @@ public class Memento implements Node{
 
     @Override
     public ArrayList<Node> expandNode(DB database) {
-        Memento node = this;
+        RouteNode node = this;
         RouteDB db = (RouteDB)database;
         ArrayList<Node> expandedNodes = new ArrayList<>();
         //Search in every street
@@ -122,7 +122,7 @@ public class Memento implements Node{
                 
                 //Creates a new node for every endPoint
                 for (int j = 0; j < db.streets.get(i).blocks.get(node.getPos()).size(); j++) {
-                    Memento newNode = new Memento(node);
+                    RouteNode newNode = new RouteNode(node);
                     newNode.setStreet(db.streets.get(i).name);
                     newNode.setPos(db.streets.get(i).blocks.get(node.getPos()).get(j));
                     expandedNodes.add(newNode); 

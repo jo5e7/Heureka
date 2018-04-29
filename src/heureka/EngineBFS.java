@@ -6,7 +6,7 @@
 package heureka;
 
 import heureka.route_planning.RouteDB;
-import heureka.route_planning.Memento;
+import heureka.route_planning.RouteNode;
 import java.awt.Point;
 import java.util.ArrayDeque;
 import java.util.ArrayList;

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class ResolutionNode implements Node{
     
     public Disjunction mDisjunction = new Disjunction();
+    public Disjunction auxDisjunction = new Disjunction();
     public Node parent;
     
     public ResolutionNode(ResolutionNode parent){
@@ -53,18 +54,19 @@ public class ResolutionNode implements Node{
 
     @Override
     public ArrayList<Node> expandNode(DB db) {
-        LogicDB ldb = (LogicDB) db;
+        ResolutionDB ldb = (ResolutionDB) db;
         ArrayList<Node> nodeList = new ArrayList<>();
 
         for (int i = 0; i < ldb.getKb().disjunctions.size(); i++) {
             Disjunction newDisjunction = new Disjunction();
-            Disjunction d1 = ldb.getKb().disjunctions.get(i);
-            Disjunction d2 = mDisjunction;
+            Disjunction d2 = ldb.getKb().disjunctions.get(i);
+            Disjunction d1 = mDisjunction;
+            //Auxiliar disjuction to track eliminated atoms 
+                Disjunction elim = new Disjunction();
 
             for (Atom next1 : d1.atoms) {
                 boolean add = true;
-                //Auxiliar disjuction to track eliminated atoms 
-                Disjunction elim = new Disjunction();
+                
                 for (Atom next2 : d2.atoms) {
                     // Represetation is the same p,q,r
                     if (next1.similar(next2) && next1.getValue() != next2.getValue()) {
@@ -76,24 +78,36 @@ public class ResolutionNode implements Node{
                 if (add) {
                     newDisjunction.addAtom(next1);
                 }
-
-                for (Atom next2 : d2.atoms) {
+                
+            }
+            
+            for (Atom next2 : d2.atoms) {
                     if (!newDisjunction.containsAtom(next2) && !elim.containsSimilar(next2)) {
                         newDisjunction.addAtom(next2);
                     }
                 }
-            }
 
             ResolutionNode newNode = new ResolutionNode(this);
             newNode.mDisjunction = newDisjunction;
+            newNode.auxDisjunction = d2;
             nodeList.add(newNode);
             
-            System.out.println("Number of disjuntions: "+String.valueOf(ldb.getKb().disjunctions.size()));
+            //System.out.println("Number of disjuntions: "+String.valueOf(ldb.getKb().disjunctions.size()));
+            
+            
         }
         for (Node node : nodeList) {
             ResolutionNode rn = (ResolutionNode)node;
             ldb.getKb().addDisjuction(rn.mDisjunction);
         }
+        System.out.println("Father: ");
+        this.mDisjunction.print();
+        System.out.println("Children: ");
+        for (Node node : nodeList) {
+                ResolutionNode auxNode = (ResolutionNode)node;
+                auxNode.mDisjunction.print();
+            }
+        System.out.println("__________________");
         System.out.println("Here we go again");
         return nodeList;
     }

@@ -23,7 +23,9 @@ public class Conjuction {
    }
    
    public void addDisjuction(Disjunction disjunction){
-       disjunctions.add(disjunction);
+       if (!disjunctions.contains(disjunction)) {
+          disjunctions.add(disjunction); 
+       }
    }
    
    @Override
