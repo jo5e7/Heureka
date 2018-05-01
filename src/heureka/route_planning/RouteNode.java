@@ -9,7 +9,6 @@ import heureka.DB;
 import heureka.Node;
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 /**
  *
@@ -47,7 +46,16 @@ public class RouteNode implements Node{
     }
     
     @Override
-    public double calculate_heuristic(Node node) {
+    public double calculate_h_n(Node node) {
+        if (node instanceof RouteNode) {
+            RouteNode other = (RouteNode)node;
+            return Math.hypot(this.pos.getX()-other.pos.getX(), this.pos.getY()-other.pos.getY());
+        }
+        return -1;
+    }
+    
+    @Override
+    public double calculate_g_n(Node node) {
         if (node instanceof RouteNode) {
             RouteNode other = (RouteNode)node;
             return Math.hypot(this.pos.getX()-other.pos.getX(), this.pos.getY()-other.pos.getY());

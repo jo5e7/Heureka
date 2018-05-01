@@ -20,7 +20,7 @@ public class EngineAStar extends Engine{
     
     PriorityQueue<Node> frontier; 
 
-    public EngineAStar(RouteDB db, RouteNode initialNode, Comparator<Node> comparator) {
+    public EngineAStar(DB db, Node initialNode, Comparator<Node> comparator) {
         super(db, initialNode);
         frontier = new PriorityQueue<>(comparator);
     }
@@ -47,8 +47,8 @@ public class EngineAStar extends Engine{
                         return next;
                     }
                     //Calculate g(n), h(n) and f(n)
-                    double g_n = frontierNode.calculate_heuristic(next);
-                    double h_n = next.calculate_heuristic(goal);
+                    double g_n = frontierNode.calculate_g_n(next);
+                    double h_n = next.calculate_h_n(goal);
                     double f_n = g_n + h_n;
                     next.set_f_n(f_n);
                     frontier.add(next);

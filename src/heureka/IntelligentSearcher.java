@@ -23,7 +23,7 @@ public interface IntelligentSearcher {
     
     public void setAStar();
     
-    public void setRBFS();
+    public void setDFS();
     
     public void FindFinalPath(Node finalNode);
 }

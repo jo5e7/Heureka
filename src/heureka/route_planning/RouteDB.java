@@ -22,7 +22,8 @@ public class RouteDB implements DB{
     public ArrayList<Street> streets = new ArrayList<>();
     
     public RouteDB() throws FileNotFoundException {
-        Scanner fileIn = new Scanner(new File("/Users/jdmaestre/Documents/DB.txt"));
+        String dbPath = "/Users/jdmaestre/Documents/DB.txt";
+        Scanner fileIn = new Scanner(new File(dbPath));
         
         String name;
         

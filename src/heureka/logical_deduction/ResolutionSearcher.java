@@ -7,11 +7,14 @@ package heureka.logical_deduction;
 
 import heureka.DB;
 import heureka.Engine;
+import heureka.EngineAStar;
 import heureka.EngineBFS;
+import heureka.EngineDFS;
 import heureka.IntelligentSearcher;
 import heureka.Node;
 import heureka.route_planning.RouteNode;
 import heureka.route_planning.RouteDB;
+import java.util.Comparator;
 
 /**
  *
@@ -30,6 +33,34 @@ public class ResolutionSearcher implements IntelligentSearcher{
         setBFS();
         //The final state is already created with the empty clause
     }
+    
+    Comparator<Node> resolutionNComparator = new Comparator<Node>() {
+        @Override
+        public int compare(Node o1, Node o2) {
+            
+            ResolutionNode obj1 = new ResolutionNode(null);
+            ResolutionNode obj2 = new ResolutionNode(null);
+            
+            if (o1 instanceof ResolutionNode) {
+            obj1 = (ResolutionNode)o1;
+            }
+            
+            if (o2 instanceof ResolutionNode) {
+            obj2 = (ResolutionNode)o2;
+            }
+            
+            if (obj1.f_n < obj2.f_n) {
+                return -1;
+            }else{
+                if (obj1.f_n == obj2.f_n) {
+                    return 0;
+                }else{
+                    return 1;
+                }
+            }
+            }
+            
+    };
 
     @Override
     public void setDb(DB db) {
@@ -40,6 +71,9 @@ public class ResolutionSearcher implements IntelligentSearcher{
     public void StartSearch() {
         ResolutionNode fn = (ResolutionNode)engine.performSearch(goalState);
         FindFinalPath(fn);
+        System.out.println("_______________________________");
+        System.out.println("_______________________________");
+        System.out.println("");
     }
 
     @Override
@@ -49,14 +83,15 @@ public class ResolutionSearcher implements IntelligentSearcher{
 
     @Override
     public void setAStar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        engine = new EngineAStar(kb, initialState,resolutionNComparator);
     }
 
     @Override
-    public void setRBFS() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setDFS() {
+        engine = new EngineDFS(kb, initialState);
     }
 
+    /*
     @Override
     public void FindFinalPath(Node finalNode) {
         if (finalNode instanceof ResolutionNode) {
@@ -83,6 +118,24 @@ public class ResolutionSearcher implements IntelligentSearcher{
             d.print();
         }
     }
+    */
     
+    
+    @Override
+    public void FindFinalPath(Node finalNode) {
+        if (finalNode instanceof ResolutionNode) {
+           ResolutionNode fn = (ResolutionNode)finalNode;
+           //Print solution
+            if (fn.getParent() != null) {
+                FindFinalPath(fn.getParent());
+            }
+            
+           fn.mDisjunction.print();
+           
+        }else{
+            System.out.println("The fact can not be infered from the Knowledge base");
+        }
+        
+    }
     
 }

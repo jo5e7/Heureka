@@ -20,9 +20,12 @@ public interface Node {
     
     public boolean equalState(Node node);
     
-    public double calculate_heuristic(Node node);
+    public double calculate_g_n(Node node);
+    
+    public double calculate_h_n(Node node);
     
     public void set_f_n(double f_n);
     
     public ArrayList<Node> expandNode(DB db);
+    
 }

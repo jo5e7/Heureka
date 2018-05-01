@@ -65,6 +65,8 @@ public class Heureka {
         kb.addDisjuction(d2);
         kb.addDisjuction(d3);
         */
+        
+        
        Atom p = new Atom("", "p", true);
        Atom not_p = new Atom("", "p", false);
        Atom q = new Atom("", "q", true);
@@ -123,15 +125,18 @@ public class Heureka {
         
         ResolutionDB logicDB = new ResolutionDB(kb);
         ResolutionSearcher ir = new ResolutionSearcher(logicDB, fact);
+        ir.setAStar();
         ir.StartSearch();
         
-        /*
+        
         RouteDB db = new RouteDB();
         IntelligentSearcher is;
-        is = new RouteSearcher("Calle 84", new Point(10, 70), new Point(55, 55), db);
-        //is.setAStar();
+        Point startPoint = new Point(10, 70);
+        Point goalPoint = new Point(55, 55);
+        is = new RouteSearcher(startPoint, goalPoint, db);
+        is.setAStar();
         is.StartSearch();
-        */
+        
     }
     
 }

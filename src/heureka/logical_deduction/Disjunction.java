@@ -54,6 +54,18 @@ public class Disjunction implements DB{
         return false;
     }
     
+    public int clashingClauses(Disjunction other){
+        int cc = 0;
+        for (Atom atom : atoms) {
+            for (Atom atom1 : other.atoms) {
+                if (atom.isOposite(atom1)) {
+                    cc += 1;
+                }
+            }
+        }
+        return cc;
+    }
+    
     public void addAtom(Atom atom){
         this.atoms.add(atom);
     }
@@ -70,7 +82,7 @@ public class Disjunction implements DB{
                 }
             }
         }
-        System.out.println("    new node");
+        System.out.println("");
     }
     
     

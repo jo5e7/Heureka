@@ -10,7 +10,7 @@ import heureka.DB;
 import heureka.Engine;
 import heureka.EngineAStar;
 import heureka.EngineBFS;
-import heureka.EngineRBFS;
+import heureka.EngineDFS;
 import heureka.IntelligentSearcher;
 import heureka.Node;
 import java.awt.Point;
@@ -55,9 +55,8 @@ public class RouteSearcher implements IntelligentSearcher{
             
     };
     
-    public RouteSearcher(String street, Point initialPosition, Point goalPosition, RouteDB db) {
+    public RouteSearcher(Point initialPosition, Point goalPosition, RouteDB db) {
         initialState.setPos(initialPosition);
-        initialState.setStreet(street);
         
         goalState.setPos(goalPosition);
         
@@ -70,11 +69,14 @@ public class RouteSearcher implements IntelligentSearcher{
     public void StartSearch() {
         RouteNode fn = (RouteNode)engine.performSearch(goalState);
         FindFinalPath(fn);
+        System.out.println("_______________________________");
+        System.out.println("_______________________________");
+        System.out.println("");
     }
     
     @Override
-    public void setRBFS(){
-        engine = new EngineRBFS(db, initialState);
+    public void setDFS(){
+        engine = new EngineDFS(db, initialState);
     }
 
     @Override
@@ -92,20 +94,22 @@ public class RouteSearcher implements IntelligentSearcher{
         engine = new EngineBFS(db, initialState);
     }
     
-    //Find path
+    
     @Override
     public void FindFinalPath(Node goal){
         if (goal instanceof RouteNode) {
             RouteNode other = (RouteNode)goal;
             
-            while (true) {            
+            if (other.getParent() != null) {
+                FindFinalPath(other.getParent());
+            }
+            
             System.out.println(other.getStreet() + " " + other.getXPoint() + "  " + other.getYPoint());
             System.out.println("");
-            other = (RouteNode) other.getParent();
-            if (other == null) {
-                break;
-            }
+        }else{
+            System.out.println("No route can be found for this destination.");
         }
-        }
+        
     }
+    
 }

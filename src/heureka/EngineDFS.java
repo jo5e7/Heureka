@@ -5,19 +5,23 @@
  */
 package heureka;
 
-
+import heureka.route_planning.RouteDB;
+import heureka.route_planning.RouteNode;
+import java.awt.Point;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
  *
  * @author jdmaestre
  */
-public class EngineBFS extends Engine{
 
-   public ArrayDeque<Node> frontier = new ArrayDeque<>();
+public class EngineDFS extends Engine{
+
+    public ArrayDeque<Node> frontier = new ArrayDeque<>();
     
-   public EngineBFS(DB db, Node initialNode) {
+   public EngineDFS(DB db, Node initialNode) {
         super(db, initialNode);
     }
    
@@ -41,7 +45,7 @@ public class EngineBFS extends Engine{
                     if (next.equalState(goal)) {
                         return next;
                     }
-                    frontier.addLast(next);
+                    frontier.addFirst(next);
                 }
             }
             
@@ -51,6 +55,4 @@ public class EngineBFS extends Engine{
         return null;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-  
 }
