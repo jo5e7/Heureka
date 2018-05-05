@@ -26,6 +26,8 @@ public interface Node {
     
     public void set_f_n(double f_n);
     
+    public double get_f_n();
+    
     public ArrayList<Node> expandNode(DB db);
     
 }

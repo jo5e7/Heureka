@@ -20,6 +20,7 @@ public class RouteNode implements Node{
     private String street = "";
     private Node parent;
     public double f_n = -1; 
+    public double g_n = 0;
     private boolean isInitialNode = false;
     
     
@@ -58,7 +59,8 @@ public class RouteNode implements Node{
     public double calculate_g_n(Node node) {
         if (node instanceof RouteNode) {
             RouteNode other = (RouteNode)node;
-            return Math.hypot(this.pos.getX()-other.pos.getX(), this.pos.getY()-other.pos.getY());
+            this.g_n = other.g_n + Math.hypot(this.pos.getX()-other.pos.getX(), this.pos.getY()-other.pos.getY());
+            return this.g_n;
         }
         return -1;
     }
@@ -115,6 +117,11 @@ public class RouteNode implements Node{
     @Override
     public void set_f_n(double f_n) {
         this.f_n = f_n;
+    }
+    
+    @Override
+    public double get_f_n() {
+        return this.f_n;
     }
 
     @Override

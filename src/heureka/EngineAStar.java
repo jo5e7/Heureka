@@ -5,8 +5,6 @@
  */
 package heureka;
 
-import heureka.route_planning.RouteDB;
-import heureka.route_planning.RouteNode;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.PriorityQueue;
@@ -27,33 +25,42 @@ public class EngineAStar extends Engine{
 
     @Override
     public Node performSearch(Node goal) {
-        if (initialNode.equalState(goal)) {
-            return initialNode;
-        }
+        
         frontier.add(initialNode);
        
         while (!frontier.isEmpty()) {            
             Node frontierNode = frontier.element();
             //System.out.println("Explored point: " + frontierNode.getPos().toString());
             //System.out.println("Point distance: " + frontierNode.f_n);
+            if (frontierNode.equalState(goal)) {
+                return frontierNode;
+            }
             
             explored.add(frontierNode);
             Iterator<Node> iterator = frontierNode.expandNode(db).iterator();
             
             while (iterator.hasNext()) {
                 Node next = iterator.next();
+                //Calculate g(n), h(n) and f(n)
+                double g_n = frontierNode.calculate_g_n(next);
+                double h_n = next.calculate_h_n(goal);
+                double f_n = g_n + h_n;
+                next.set_f_n(f_n);
+                    
                 if (!explored.contains(next) &&  !frontier.contains(next)) {
-                    if (next.equalState(goal)) {
-                        return next;
-                    }
-                    //Calculate g(n), h(n) and f(n)
-                    double g_n = frontierNode.calculate_g_n(next);
-                    double h_n = next.calculate_h_n(goal);
-                    double f_n = g_n + h_n;
-                    next.set_f_n(f_n);
                     frontier.add(next);
                     
-                    
+                }else{
+                    //Checks if the current node is in the frontier
+                    if (frontier.contains(next)) {
+                        for (Node node : explored) {
+                            //Checks if the current node in the frontier has f(n) > than the current node
+                            if (node.equals(next) && node.get_f_n() > next.get_f_n()) {
+                                frontier.remove(node);
+                                frontier.add(next);
+                            }
+                        }
+                    }
                 }
             }
             

@@ -19,7 +19,7 @@ public class ResolutionNode implements Node {
     public Disjunction auxDisjunction = new Disjunction();
     public Node parent;
     public double f_n = -1;
-    public int lvl = 0;
+    public int g_n = 0;
 
     public ResolutionNode(ResolutionNode parent) {
         this.parent = parent;
@@ -55,18 +55,23 @@ public class ResolutionNode implements Node {
 
     @Override
     public double calculate_g_n(Node node) {
-        return 1;
+        return g_n;
     }
     
     @Override
     public double calculate_h_n(Node node) {
         ResolutionNode rn = (ResolutionNode)node;
-        return mDisjunction.atoms.size() + lvl;
+        return mDisjunction.atoms.size();
     }
 
     @Override
     public void set_f_n(double f_n) {
         this.f_n = f_n;
+    }
+    
+    @Override
+    public double get_f_n() {
+        return this.f_n;
     }
 
     @Override
@@ -108,7 +113,7 @@ public class ResolutionNode implements Node {
                 ResolutionNode newNode = new ResolutionNode(this);
                 newNode.mDisjunction = newDisjunction;
                 newNode.auxDisjunction = d2;
-                newNode.lvl = this.lvl +1;
+                newNode.g_n = this.g_n +1;
                 nodeList.add(newNode);
             }
 
