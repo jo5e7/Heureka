@@ -133,7 +133,7 @@ public class ResolutionSearcher implements IntelligentSearcher{
            fn.mDisjunction.print();
            
         }else{
-            System.out.println("The fact can not be infered from the Knowledge base");
+            System.out.println("The fact can not be inferred from the Knowledge base");
         }
         
     }

@@ -25,20 +25,20 @@ public class EngineAStar extends Engine{
 
     @Override
     public Node performSearch(Node goal) {
-        
+
         frontier.add(initialNode);
-       
-        while (!frontier.isEmpty()) {            
+
+        while (!frontier.isEmpty()) {
             Node frontierNode = frontier.element();
             //System.out.println("Explored point: " + frontierNode.getPos().toString());
             //System.out.println("Point distance: " + frontierNode.f_n);
             if (frontierNode.equalState(goal)) {
                 return frontierNode;
             }
-            
+
             explored.add(frontierNode);
             Iterator<Node> iterator = frontierNode.expandNode(db).iterator();
-            
+
             while (iterator.hasNext()) {
                 Node next = iterator.next();
                 //Calculate g(n), h(n) and f(n)
@@ -46,11 +46,11 @@ public class EngineAStar extends Engine{
                 double h_n = next.calculate_h_n(goal);
                 double f_n = g_n + h_n;
                 next.set_f_n(f_n);
-                    
-                if (!explored.contains(next) &&  !frontier.contains(next)) {
+
+                if (!explored.contains(next) && !frontier.contains(next)) {
                     frontier.add(next);
-                    
-                }else{
+
+                } else {
                     //Checks if the current node is in the frontier
                     if (frontier.contains(next)) {
                         for (Node node : explored) {
@@ -63,13 +63,12 @@ public class EngineAStar extends Engine{
                     }
                 }
             }
-            
+
             frontier.remove(frontierNode);
-            
+
         }
-        
+
         return null;
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

@@ -5,7 +5,6 @@
  */
 package heureka.logical_deduction;
 
-import heureka.route_planning.RouteNode;
 
 /**
  *
